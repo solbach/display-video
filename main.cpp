@@ -1,12 +1,21 @@
 #include <iostream>
 #include <cv.h>
 #include <highgui.h>
+#include <stdlib.h>
 
 char key;
-int main()
+
+void readme()
 {
+    std::cout << "[INFO] you may specify the camera ID by: $./displayID <ID>" << std::endl;
+}
+
+int main( int argc, char* argv[] )
+{
+    readme();
+    const int cameraNo = argc > 1 ? atoi(argv[1]) : 0;
     cvNamedWindow("Camera_Output", 1);
-    CvCapture* capture = cvCaptureFromCAM(CV_CAP_ANY);
+    CvCapture* capture = cvCaptureFromCAM( cameraNo );
 
     while(true){
         IplImage* frame = cvQueryFrame(capture);
@@ -20,3 +29,4 @@ int main()
     cvDestroyWindow("Camera_Output"); //Destroy Window
     return 0;
 }
+
